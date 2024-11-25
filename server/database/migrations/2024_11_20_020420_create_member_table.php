@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('member', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
-            $table->string('username', 50)->unique();
+            $table->string('username', 50);
             $table->string('password');
-            $table->string('fullname', 100);
-            $table->string('is_male');
+            $table->string('fullname', 100)->nullable();
+            $table->string('is_male')->nullable();
             $table->date('birthday')->nullable();
-            $table->string('email', 100);
+            $table->string('email', 100)->unique();
             $table->string('phone', 12)->nullable();
             $table->string('picture')->nullable()->default('avatar_defailt.jpg');
-            $table->integer('access_level')->unsigned();
+            $table->integer('access_level')->unsigned()->nullable();
+            $table->string('role')->default('user');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('modified_by')->unsigned()->nullable();
             $table->foreign('access_level')->references('id')->on('configuration')->onUpdate('cascade');
